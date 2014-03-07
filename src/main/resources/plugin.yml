@@ -1,0 +1,13 @@
+name: ${project.name}
+version: ${project.version}
+description: Slap plugin for Bukkit
+depend: []
+softdepend: [VanishNoPacket]
+author: Stealth2800
+website: http://stealthyone.com/bukkit
+main: com.stealthyone.mcb.simpleslap.SimpleSlap
+commands:
+  simpleslap:
+    aliases: []
+  slap:
+    aliases: []

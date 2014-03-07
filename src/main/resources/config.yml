@@ -1,0 +1,14 @@
+Prevent fall damage: true
+Prevent fall damage from self: false
+Prevent vanished player slap: true
+Slap default power: 2
+Slap effect:
+  Xvel: '( {RANDOM} * 1.5 - 0.75 ) * {FORCE}'
+  Yvel: '{RANDOM} / 2.5 + ( 0.4 * {FORCE} )'
+  Zvel: '( {RANDOM} * 1.5 - 0.75 ) * {FORCE}'
+Slap messages:
+  '0': '&6{SENDER} poked {TARGET}.'
+  '2': '&6{SENDER} slapped {TARGET}!'
+  '4': '&6{SENDER} slapped {TARGET} hard!'
+  '6': '&6{SENDER} slapped {TARGET} hard and left a mark!'
+  '10': '&6{SENDER} launched {TARGET} into orbit!'
