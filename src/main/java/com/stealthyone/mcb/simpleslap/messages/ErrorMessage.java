@@ -27,7 +27,8 @@ public enum ErrorMessage {
     SLAP_CANNOT_SLAP_SELF,
     SLAP_INVALID_POWER,
     SLAP_POWER_MUST_BE_INT,
-    UNABLE_TO_FIND_PLAYER;
+    UNABLE_TO_FIND_PLAYER,
+    UNKNOWN_COMMAND;
 
     private String path;
 

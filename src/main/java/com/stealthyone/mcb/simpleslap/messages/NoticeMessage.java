@@ -23,11 +23,6 @@ import org.bukkit.command.CommandSender;
 
 public enum NoticeMessage {
 
-    FORMAT_DEFAULT_NOTICE,
-    FORMAT_DEFAULT_SET,
-    FORMAT_NOTICE,
-    FORMAT_SET,
-
     PLUGIN_RELOADED,
     PLUGIN_SAVED;
 
