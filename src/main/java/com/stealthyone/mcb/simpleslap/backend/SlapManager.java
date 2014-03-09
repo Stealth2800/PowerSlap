@@ -4,15 +4,21 @@ import com.stealthyone.mcb.simpleslap.SimpleSlap;
 import com.stealthyone.mcb.simpleslap.config.ConfigHelper;
 import com.stealthyone.mcb.simpleslap.messages.ErrorMessage;
 import com.stealthyone.mcb.simpleslap.permissions.PermissionNode;
-import org.bukkit.*;
+import com.stealthyone.mcb.simpleslap.utils.YamlFileManager;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
+import org.kitteh.vanish.VanishPlugin;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import java.io.File;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -26,15 +32,37 @@ public class SlapManager {
     private String equationYvel;
     private String equationZvel;
 
-    private Set<String> damageCancellers = new HashSet<>();
+    private YamlFileManager tempData;
+    private Set<UUID> damageCancellers = new HashSet<>();
 
     public SlapManager(SimpleSlap plugin) {
         this.plugin = plugin;
+        tempData = new YamlFileManager(plugin.getDataFolder() + File.separator + "data" + File.separator + "damageCancellers.yml");
         reloadData();
+    }
+
+    public void save() {
+        List<String> list = new ArrayList<>();
+        for (UUID uuid : damageCancellers) {
+            list.add(uuid.toString());
+        }
+        tempData.getConfig().set("players", list);
+        tempData.saveFile();
     }
 
     public void reloadData() {
         slapMessages.clear();
+        damageCancellers.clear();
+
+        tempData.reloadConfig();
+        for (String uuid : tempData.getConfig().getStringList("players")) {
+            try {
+                damageCancellers.add(UUID.fromString(uuid));
+            } catch (Exception ex) {
+                plugin.getLogger().warning("Invalid UUID in tempData (" + uuid + ")");
+            }
+        }
+        tempData.getConfig().set("players", null);
 
         FileConfiguration config = plugin.getConfig();
 
@@ -65,6 +93,16 @@ public class SlapManager {
 
             String message = messageSec.getString(power);
             slapMessages.put(powerNum, message);
+        }
+    }
+
+    public boolean checkVanish(Player player) {
+        if (!plugin.isHookVanish()) {
+            return false;
+        } else if (!ConfigHelper.PREVENT_VANISHED_PLAYER_SLAP.get()) {
+            return false;
+        } else {
+            return ((VanishPlugin) Bukkit.getPluginManager().getPlugin("VanishNoPacket")).getManager().isVanished(player);
         }
     }
 
@@ -117,7 +155,7 @@ public class SlapManager {
             playerCast.setVelocity(new Vector(xVel, yVel, zVel));
 
             if (preventFallDmg && playerCast.getGameMode() != GameMode.CREATIVE) {
-                damageCancellers.add(target.getName().toLowerCase());
+                damageCancellers.add(((Player) target).getUniqueId());
             }
         }
 
@@ -125,9 +163,7 @@ public class SlapManager {
     }
 
     public boolean isDamageCancelled(Player player) {
-        boolean result = damageCancellers.contains(player.getName().toLowerCase());
-        damageCancellers.remove(player.getName().toLowerCase());
-        return result;
+        return damageCancellers.remove(player.getUniqueId());
     }
 
 }
