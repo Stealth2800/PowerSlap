@@ -1,8 +1,13 @@
+tag: '&6[{PLUGINNAME}] '
 errors:
   no_permission: '&cYou do not have permission to do this.'
   slap_cannot_slap_self: '&cYou cannot slap yourself.'
   slap_invalid_power: '&cInvalid slap power: &4%s&c.'
   slap_power_must_be_int: '&cPower must be an integer.'
   unable_to_find_player: '&cUnable to find player: &4%s&c.'
+  unknown_command: '{TAG}&cUnknown command: &4%s&c.'
+notices:
+  plugin_reloaded: '{TAG}&aPlugin data reloaded from the disk.'
+  plugin_saved: '{TAG}&aPlugin data saved to the disk.'
 usages:
   slap: '{TAG}&c/{LABEL} <player> [power]'
