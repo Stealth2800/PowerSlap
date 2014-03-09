@@ -13,6 +13,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <scm>
+        <connection>scm:git:https://stealth2800@github.com/SimpleSlap.git</connection>
+        <developerConnection>scm:git:https://stealth2800@github.com/SimpleSlap.git</developerConnection>
+    </scm>
+
     <repositories>
         <repository>
             <id>bukkit-repo</id>
