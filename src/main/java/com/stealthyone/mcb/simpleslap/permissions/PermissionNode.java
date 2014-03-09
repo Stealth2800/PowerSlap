@@ -5,6 +5,9 @@ import org.bukkit.command.CommandSender;
 
 public enum PermissionNode {
 
+    ADMIN_RELOAD,
+    ADMIN_SAVE,
+
     SLAP,
     SLAP_SELF;
 
