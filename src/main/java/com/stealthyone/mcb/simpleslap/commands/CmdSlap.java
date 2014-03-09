@@ -45,6 +45,11 @@ public class CmdSlap implements CommandExecutor {
             return true;
         }
 
+        if (plugin.getSlapManager().checkVanish(player)) {
+            ErrorMessage.UNABLE_TO_FIND_PLAYER.sendTo(sender, targetName);
+            return true;
+        }
+
         plugin.getSlapManager().handleSlap(sender, player, power);
 
         return true;
