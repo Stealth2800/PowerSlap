@@ -113,7 +113,7 @@ public class SlapManager {
             }
 
             Player playerCast = (Player) target;
-            playerCast.playSound(playerCast.getLocation(), Sound.HURT_FLESH, 1F, 1.5F);
+            playerCast.playSound(playerCast.getLocation(), Sound.HURT_FLESH, 1F, 1.25F);
             playerCast.setVelocity(new Vector(xVel, yVel, zVel));
 
             if (preventFallDmg && playerCast.getGameMode() != GameMode.CREATIVE) {
