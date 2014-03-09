@@ -1,6 +1,7 @@
 package com.stealthyone.mcb.simpleslap;
 
 import com.stealthyone.mcb.simpleslap.backend.SlapManager;
+import com.stealthyone.mcb.simpleslap.commands.CmdSimpleSlap;
 import com.stealthyone.mcb.simpleslap.commands.CmdSlap;
 import com.stealthyone.mcb.simpleslap.config.ConfigHelper;
 import com.stealthyone.mcb.simpleslap.listeners.PlayerListener;
@@ -8,6 +9,8 @@ import com.stealthyone.mcb.simpleslap.utils.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
 
 public class SimpleSlap extends JavaPlugin {
 
@@ -17,16 +20,18 @@ public class SimpleSlap extends JavaPlugin {
         return instance;
     }
 
+    private boolean hookVanish = false;
+
+    private MessageManager messageManager;
+
+    private SlapManager slapManager;
+
     @Override
     public void onLoad() {
         instance = this;
         getDataFolder().mkdir();
+        new File(getDataFolder() + File.separator + "data").mkdir();
     }
-
-    private boolean hookVanish = false;
-
-    private MessageManager messageManager;
-    private SlapManager slapManager;
 
     @Override
     public void onEnable() {
@@ -61,6 +66,7 @@ public class SimpleSlap extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
 
+        getCommand("simpleslap").setExecutor(new CmdSimpleSlap(this));
         getCommand("slap").setExecutor(new CmdSlap(this));
 
         getLogger().info(String.format("%s v%s by Stealth2800 ENABLED.", getName(), getDescription().getVersion()));
@@ -68,13 +74,20 @@ public class SimpleSlap extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        saveAll();
         getLogger().info(String.format("%s v%s by Stealth2800 DISABLED.", getName(), getDescription().getVersion()));
         instance = null;
     }
 
+    public void saveAll() {
+        saveConfig();
+        slapManager.save();
+    }
+
     public void reloadAll() {
         reloadConfig();
-
+        messageManager.reloadMessages();
+        slapManager.reloadData();
     }
 
     public MessageManager getMessageManager() {
@@ -83,6 +96,10 @@ public class SimpleSlap extends JavaPlugin {
 
     public SlapManager getSlapManager() {
         return slapManager;
+    }
+
+    public boolean isHookVanish() {
+        return hookVanish;
     }
 
 }
