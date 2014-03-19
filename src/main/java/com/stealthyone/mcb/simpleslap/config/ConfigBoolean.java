@@ -24,6 +24,10 @@ public enum ConfigBoolean {
 
     DEBUG("Debug"),
 
+    SLAP_COOLDOWN_ALERT("Slap cooldown.Cooldown alert", true),
+    SLAP_COOLDOWN_PAUSE_OFFLINE("Slap cooldown.Pause while offline", true),
+    SLAP_COOLDOWN_PAUSE_SERVER_DOWN("Slap cooldown.Pause while server is down", true),
+
     PREVENT_FALL_DAMAGE("Prevent fall damage", true),
     PREVENT_FALL_DAMAGE_SELF("Prevent fall damage from self"),
     PREVENT_VANISHED_PLAYER_SLAP("Prevent vanished player slap", true);

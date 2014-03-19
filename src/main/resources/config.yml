@@ -2,6 +2,15 @@ Prevent fall damage: true
 Prevent fall damage from self: false
 Prevent vanished player slap: true
 Slap default power: 2
+Slap cooldown:
+  Cooldown alert: true
+  Pause while offline: true
+  Pause while server is down: true
+  Intervals:
+    - 10
+    - 15
+    - 30
+    - 60
 Slap effect:
   Xvel: '( {RANDOM} * 1.5 - 0.75 ) * {FORCE}'
   Yvel: '{RANDOM} / 2.5 + ( 0.4 * {FORCE} )'

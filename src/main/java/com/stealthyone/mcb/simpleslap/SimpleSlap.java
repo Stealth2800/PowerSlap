@@ -1,11 +1,13 @@
 package com.stealthyone.mcb.simpleslap;
 
 import com.stealthyone.mcb.simpleslap.backend.SlapManager;
+import com.stealthyone.mcb.simpleslap.backend.cooldowns.CooldownManager;
 import com.stealthyone.mcb.simpleslap.commands.CmdSimpleSlap;
 import com.stealthyone.mcb.simpleslap.commands.CmdSlap;
 import com.stealthyone.mcb.simpleslap.config.ConfigHelper;
 import com.stealthyone.mcb.simpleslap.listeners.PlayerListener;
 import com.stealthyone.mcb.simpleslap.utils.MessageManager;
+import com.stealthyone.mcb.simpleslap.utils.PlayerUuidTracker;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,7 +25,9 @@ public class SimpleSlap extends JavaPlugin {
     private boolean hookVanish = false;
 
     private MessageManager messageManager;
+    private PlayerUuidTracker uuidTracker;
 
+    private CooldownManager cooldownManager;
     private SlapManager slapManager;
 
     @Override
@@ -62,6 +66,9 @@ public class SimpleSlap extends JavaPlugin {
         }
 
         messageManager = new MessageManager(this);
+        uuidTracker = new PlayerUuidTracker(this);
+
+        cooldownManager = new CooldownManager(this);
         slapManager = new SlapManager(this);
 
         Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
@@ -82,16 +89,26 @@ public class SimpleSlap extends JavaPlugin {
     public void saveAll() {
         saveConfig();
         slapManager.save();
+        cooldownManager.saveCooldowns();
     }
 
     public void reloadAll() {
         reloadConfig();
         messageManager.reloadMessages();
         slapManager.reloadData();
+        cooldownManager.reloadCooldowns();
     }
 
     public MessageManager getMessageManager() {
         return messageManager;
+    }
+
+    public PlayerUuidTracker getUuidTracker() {
+        return uuidTracker;
+    }
+
+    public CooldownManager getCooldownManager() {
+        return cooldownManager;
     }
 
     public SlapManager getSlapManager() {

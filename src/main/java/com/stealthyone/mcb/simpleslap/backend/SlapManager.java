@@ -4,6 +4,7 @@ import com.stealthyone.mcb.simpleslap.SimpleSlap;
 import com.stealthyone.mcb.simpleslap.config.ConfigHelper;
 import com.stealthyone.mcb.simpleslap.messages.ErrorMessage;
 import com.stealthyone.mcb.simpleslap.permissions.PermissionNode;
+import com.stealthyone.mcb.simpleslap.utils.TimeUtils;
 import com.stealthyone.mcb.simpleslap.utils.YamlFileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -147,6 +148,11 @@ public class SlapManager {
             } catch (Exception ex) {
                 sender.sendMessage(ChatColor.RED + "An error occurred while calculating the slap velocity. Please contact an administrator and notify them of this!");
                 ex.printStackTrace();
+                return;
+            }
+
+            if (!plugin.getCooldownManager().handleSlap(sender)) {
+                ErrorMessage.SLAP_COOLING_DOWN.sendTo(sender, TimeUtils.translateSeconds(plugin.getCooldownManager().getCooldownTime(sender)));
                 return;
             }
 

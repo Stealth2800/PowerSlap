@@ -5,7 +5,8 @@ import org.bukkit.command.CommandSender;
 
 public enum VariablePermissionNode {
 
-    SLAP;
+    SLAP,
+    SLAP_COOLDOWN;
 
     private String permission;
 

@@ -23,6 +23,8 @@ import org.bukkit.command.CommandSender;
 
 public enum NoticeMessage {
 
+    SLAP_COOLDOWN_ENDED,
+
     PLUGIN_RELOADED,
     PLUGIN_SAVED;
 

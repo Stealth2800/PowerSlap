@@ -21,6 +21,9 @@ package com.stealthyone.mcb.simpleslap.config;
 public class ConfigHelper {
 
     public final static ConfigBoolean DEBUG = ConfigBoolean.DEBUG;
+    public final static ConfigBoolean SLAP_COOLDOWN_ALERT = ConfigBoolean.SLAP_COOLDOWN_ALERT;
+    public final static ConfigBoolean SLAP_COOLDOWN_PAUSE_OFFLINE = ConfigBoolean.SLAP_COOLDOWN_PAUSE_OFFLINE;
+    public final static ConfigBoolean SLAP_COOLDOWN_PAUSE_SERVER_DOWN = ConfigBoolean.SLAP_COOLDOWN_PAUSE_SERVER_DOWN;
     public final static ConfigBoolean PREVENT_FALL_DAMAGE = ConfigBoolean.PREVENT_FALL_DAMAGE;
     public final static ConfigBoolean PREVENT_FALL_DAMAGE_SELF = ConfigBoolean.PREVENT_FALL_DAMAGE_SELF;
     public final static ConfigBoolean PREVENT_VANISHED_PLAYER_SLAP = ConfigBoolean.PREVENT_VANISHED_PLAYER_SLAP;

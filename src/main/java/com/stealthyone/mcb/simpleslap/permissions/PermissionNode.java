@@ -29,6 +29,7 @@ public enum PermissionNode {
         return result;
     }
 
+    public final static VariablePermissionNode SLAP_COOLDOWN = VariablePermissionNode.SLAP_COOLDOWN;
     public final static VariablePermissionNode SLAP_POWER = VariablePermissionNode.SLAP;
 
 }
