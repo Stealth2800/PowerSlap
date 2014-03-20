@@ -90,6 +90,7 @@ public class SimpleSlap extends JavaPlugin {
         saveConfig();
         slapManager.save();
         cooldownManager.saveCooldowns();
+        uuidTracker.saveUuids();
     }
 
     public void reloadAll() {
