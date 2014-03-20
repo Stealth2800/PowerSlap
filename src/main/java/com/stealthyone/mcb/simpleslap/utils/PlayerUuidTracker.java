@@ -20,7 +20,7 @@ public class PlayerUuidTracker {
 
     public PlayerUuidTracker(SimpleSlap plugin) {
         this.plugin = plugin;
-        uuidFile = new YamlFileManager(plugin.getDataFolder() + File.separator + "playerUUIDs.yml");
+        uuidFile = new YamlFileManager(plugin.getDataFolder() + File.separator + "data" + File.separator + "playerUUIDs.yml");
         reloadUuids();
     }
 

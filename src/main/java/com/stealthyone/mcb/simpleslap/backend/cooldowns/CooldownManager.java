@@ -29,7 +29,7 @@ public class CooldownManager {
 
     public CooldownManager(SimpleSlap plugin) {
         this.plugin = plugin;
-        cooldownFile = new YamlFileManager(plugin.getDataFolder() + File.separator + "Cooldown.yml");
+        cooldownFile = new YamlFileManager(plugin.getDataFolder() + File.separator + "data" + File.separator + "cooldowns.yml");
         reloadCooldowns();
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new CooldownCounter(), 20L, 20L);
