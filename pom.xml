@@ -50,12 +50,16 @@
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>1.7.2-R0.3-SNAPSHOT</version>
+            <scope>compile</scope>
+            <type>jar</type>
         </dependency>
 
         <dependency>
             <groupId>org.kitteh</groupId>
             <artifactId>vanishnopacket</artifactId>
             <version>3.18.10</version>
+            <scope>compile</scope>
+            <type>jar</type>
         </dependency>
     </dependencies>
 
