@@ -9,7 +9,9 @@ public enum PermissionNode {
     ADMIN_SAVE,
 
     SLAP,
-    SLAP_SELF;
+    SLAP_ADMIN_BYPASS,
+    SLAP_SELF,
+    SLAP_TOGGLE;
 
     private String permission;
 

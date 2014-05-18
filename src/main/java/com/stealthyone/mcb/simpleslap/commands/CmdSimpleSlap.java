@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class CmdSimpleSlap implements CommandExecutor {
 
@@ -25,12 +26,20 @@ public class CmdSimpleSlap implements CommandExecutor {
         }
 
         switch (args[0].toLowerCase()) {
+            case "bypass":
+                cmdBypass(sender, command, label, args);
+                return true;
+
             case "reload":
                 cmdReload(sender, command, label, args);
                 return true;
 
             case "save":
                 cmdSave(sender, command, label, args);
+                return true;
+
+            case "toggle":
+                cmdToggle(sender, command, label, args);
                 return true;
 
             case "version":
@@ -47,6 +56,19 @@ public class CmdSimpleSlap implements CommandExecutor {
     }
 
     /*
+     * Toggle admin bypass mode.
+     */
+    protected void cmdBypass(CommandSender sender, Command command, String label, String[] args) {
+        if (!(sender instanceof Player)) {
+            ErrorMessage.MUST_BE_PLAYER.sendTo(sender);
+            return;
+        } else if (!PermissionNode.SLAP_ADMIN_BYPASS.isAllowed(sender, true)) return;
+
+        boolean newValue = plugin.getSlapManager().toggleAdminBypass((Player) sender);
+        NoticeMessage.SLAP_BYPASS_TOGGLED.sendTo(sender, newValue ? (ChatColor.GREEN + "enabled") : (ChatColor.RED + "disabled"));
+    }
+
+    /*
      * Reload plugin data.
      */
     private void cmdReload(CommandSender sender, Command command, String label, String[] args) {
@@ -54,6 +76,19 @@ public class CmdSimpleSlap implements CommandExecutor {
 
         plugin.reloadAll();
         NoticeMessage.PLUGIN_RELOADED.sendTo(sender);
+    }
+
+    /*
+     * Toggle slap movement.
+     */
+    protected void cmdToggle(CommandSender sender, Command command, String label, String[] args) {
+        if (!(sender instanceof Player)) {
+            ErrorMessage.MUST_BE_PLAYER.sendTo(sender);
+            return;
+        } else if (!PermissionNode.SLAP_TOGGLE.isAllowed(sender, true)) return;
+
+        boolean newValue = plugin.getSlapManager().toggleMovementBlock((Player) sender);
+        NoticeMessage.SLAP_MOVEMENT_TOGGLED.sendTo(sender, newValue ? (ChatColor.RED + "blocking") : (ChatColor.GREEN + "accepting"));
     }
 
     /*

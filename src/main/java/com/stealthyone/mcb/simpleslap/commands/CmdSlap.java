@@ -26,6 +26,16 @@ public class CmdSlap implements CommandExecutor {
         if (args.length < 1) {
             UsageMessage.SLAP.sendTo(sender, label);
             return true;
+        } else {
+            switch (args[0].toLowerCase()) {
+                case "bypass":
+                    ((CmdSimpleSlap) plugin.getCommand("simpleslap").getExecutor()).cmdBypass(sender, command, label, args);
+                    return true;
+
+                case "toggle":
+                    ((CmdSimpleSlap) plugin.getCommand("simpleslap").getExecutor()).cmdToggle(sender, command, label, args);
+                    return true;
+            }
         }
 
         int power;

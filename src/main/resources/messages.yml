@@ -1,14 +1,17 @@
 tag: '&6[{PLUGINNAME}] '
 errors:
-  no_permission: '&cYou do not have permission to do this.'
   slap_cannot_slap_self: '&cYou cannot slap yourself.'
   slap_cooling_down: '&cYou cannot slap for another &4%s&c.'
   slap_invalid_power: '&cInvalid slap power: &4%s&c.'
   slap_power_must_be_int: '&cPower must be an integer.'
+  must_be_player: '&cYou must be a player to do this.'
+  no_permission: '&cYou do not have permission to do this.'
   unable_to_find_player: '&cUnable to find player: &4%s&c.'
   unknown_command: '{TAG}&cUnknown command: &4%s&c.'
 notices:
+  slap_bypass_toggled: '&6Admin bypass mode %s&6.'
   slap_cooldown_ended: '&9Slap cooldown ended.'
+  slap_movement_toggled: '&6Now %s &6slap movement.'
   plugin_reloaded: '{TAG}&aPlugin data reloaded from the disk.'
   plugin_saved: '{TAG}&aPlugin data saved to the disk.'
 usages:

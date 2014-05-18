@@ -21,6 +21,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.io.File;
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 
 public class SlapManager {
@@ -36,10 +37,15 @@ public class SlapManager {
     private YamlFileManager tempData;
     private Set<UUID> damageCancellers = new HashSet<>();
 
+    private YamlFileManager playerData;
+    private Map<UUID, Boolean> adminBypasses = new HashMap<>();
+    private Map<UUID, Boolean> movementCancellers = new HashMap<>();
+
     public SlapManager(SimpleSlap plugin) {
         this.plugin = plugin;
+        playerData = new YamlFileManager(plugin.getDataFolder() + File.separator + "data" + File.separator + "playerData.yml");
         tempData = new YamlFileManager(plugin.getDataFolder() + File.separator + "data" + File.separator + "damageCancellers.yml");
-        reloadData();
+        loadData();
     }
 
     public void save() {
@@ -49,13 +55,21 @@ public class SlapManager {
         }
         tempData.getConfig().set("players", list);
         tempData.saveFile();
+
+        ConfigurationSection moveToggleConf = playerData.getConfig().createSection("movementToggles");
+        for (Entry<UUID, Boolean> entry : movementCancellers.entrySet()) {
+            moveToggleConf.set(entry.getKey().toString(), entry.getValue());
+        }
+
+        ConfigurationSection adminBypassConf = playerData.getConfig().createSection("adminBypasses");
+        for (Entry<UUID, Boolean> entry : adminBypasses.entrySet()) {
+            adminBypassConf.set(entry.getKey().toString(), entry.getValue());
+        }
+
+        playerData.saveFile();
     }
 
-    public void reloadData() {
-        slapMessages.clear();
-        damageCancellers.clear();
-
-        tempData.reloadConfig();
+    public void loadData() {
         for (String uuid : tempData.getConfig().getStringList("players")) {
             try {
                 damageCancellers.add(UUID.fromString(uuid));
@@ -64,6 +78,34 @@ public class SlapManager {
             }
         }
         tempData.getConfig().set("players", null);
+
+        ConfigurationSection moveToggleConf = playerData.getConfig().getConfigurationSection("movementToggles");
+        if (moveToggleConf != null) {
+            for (String uuid : moveToggleConf.getKeys(false)) {
+                try {
+                    movementCancellers.put(UUID.fromString(uuid), moveToggleConf.getBoolean(uuid, false));
+                } catch (Exception ex) {
+                    plugin.getLogger().warning("Invalid UUID in playerData.yml (" + uuid + ")");
+                }
+            }
+        }
+
+        ConfigurationSection adminBypassConf = playerData.getConfig().getConfigurationSection("adminBypasses");
+        if (adminBypassConf != null) {
+            for (String uuid : adminBypassConf.getKeys(false)) {
+                try {
+                    adminBypasses.put(UUID.fromString(uuid), adminBypassConf.getBoolean(uuid, false));
+                } catch (Exception ex) {
+                    plugin.getLogger().warning("Invalid UUID in playerData.yml (" + uuid + ")");
+                }
+            }
+        }
+
+        reloadData();
+    }
+
+    public void reloadData() {
+        slapMessages.clear();
 
         FileConfiguration config = plugin.getConfig();
 
@@ -107,6 +149,28 @@ public class SlapManager {
         }
     }
 
+    private boolean checkMovementBlock(Player player) {
+        Boolean value = movementCancellers.get(player.getUniqueId());
+        return value == null ? false : value;
+    }
+
+    private boolean checkAdminBypass(Player player) {
+        Boolean value = adminBypasses.get(player.getUniqueId());
+        return value == null ? false : value;
+    }
+
+    public boolean toggleMovementBlock(Player player) {
+        boolean value = checkMovementBlock(player);
+        movementCancellers.put(player.getUniqueId(), !value);
+        return !value;
+    }
+
+    public boolean toggleAdminBypass(Player player) {
+        boolean value = checkAdminBypass(player);
+        adminBypasses.put(player.getUniqueId(), !value);
+        return !value;
+    }
+
     public void handleSlap(CommandSender sender, CommandSender target, int power) {
         if (power < 0) {
             ErrorMessage.SLAP_INVALID_POWER.sendTo(sender, Integer.toString(power));
@@ -134,7 +198,12 @@ public class SlapManager {
             return;
         }
 
-        if (target instanceof Player) {
+        if (!plugin.getCooldownManager().handleSlap(sender)) {
+            ErrorMessage.SLAP_COOLING_DOWN.sendTo(sender, TimeUtils.translateSeconds(plugin.getCooldownManager().getCooldownTime(sender)));
+            return;
+        }
+
+        if (target instanceof Player && (!checkMovementBlock((Player) target) || checkMovementBlock((Player) target) && sender instanceof Player && checkAdminBypass((Player) sender))) {
             ScriptEngine js = new ScriptEngineManager().getEngineByName("JavaScript");
             Random random = new Random();
 
@@ -148,11 +217,6 @@ public class SlapManager {
             } catch (Exception ex) {
                 sender.sendMessage(ChatColor.RED + "An error occurred while calculating the slap velocity. Please contact an administrator and notify them of this!");
                 ex.printStackTrace();
-                return;
-            }
-
-            if (!plugin.getCooldownManager().handleSlap(sender)) {
-                ErrorMessage.SLAP_COOLING_DOWN.sendTo(sender, TimeUtils.translateSeconds(plugin.getCooldownManager().getCooldownTime(sender)));
                 return;
             }
 
