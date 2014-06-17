@@ -1,4 +1,4 @@
-tag: '&6[{PLUGINNAME}] '
+tag: '&6[{PLUGIN}] '
 errors:
   slap_cannot_slap_self: '&cYou cannot slap yourself.'
   slap_cooling_down: '&cYou cannot slap for another &4{TIME}&c.'
