@@ -1,5 +1,5 @@
 /*
- * SimpleSlap - Simple slapping plugin for players to abuse each other with
+ * PowerSlap - Slapping plugin for players to abuse each other with
  * Copyright (C) 2013 Stealth2800 <stealth2800@stealthyone.com>
  * Website: <http://stealthyone.com/bukkit>
  *
@@ -16,40 +16,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.stealthyone.mcb.simpleslap.permissions;
+package com.stealthyone.mcb.powerslap.permissions;
 
-import com.stealthyone.mcb.simpleslap.messages.ErrorMessage;
+import com.stealthyone.mcb.powerslap.messages.ErrorMessage;
 import org.bukkit.command.CommandSender;
 
-public enum PermissionNode {
-
-    ADMIN_RELOAD,
-    ADMIN_SAVE,
+public enum VariablePermissionNode {
 
     SLAP,
-    SLAP_ADMIN_BYPASS,
-    SLAP_SELF,
-    SLAP_TOGGLE;
+    SLAP_COOLDOWN;
 
     private String permission;
 
-    private PermissionNode() {
-        permission = "simpleslap." + toString().toLowerCase().replace("_", ".");
+    private VariablePermissionNode() {
+        permission = "powerslap." + toString().toLowerCase().replace("_", ".");
     }
 
-    public boolean isAllowed(CommandSender sender) {
-        return sender.hasPermission(permission);
+    public boolean isAllowed(CommandSender sender, String variable) {
+        return sender.hasPermission(permission + "." + variable.toLowerCase());
     }
 
-    public boolean isAllowed(CommandSender sender, boolean alert) {
-        boolean result = isAllowed(sender);
+    public boolean isAllowed(CommandSender sender, String variable, boolean alert) {
+        boolean result = isAllowed(sender, variable);
         if (!result && alert) {
             ErrorMessage.NO_PERMISSION.sendTo(sender);
         }
         return result;
     }
-
-    public final static VariablePermissionNode SLAP_COOLDOWN = VariablePermissionNode.SLAP_COOLDOWN;
-    public final static VariablePermissionNode SLAP_POWER = VariablePermissionNode.SLAP;
 
 }

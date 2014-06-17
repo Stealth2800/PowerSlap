@@ -1,5 +1,5 @@
 /*
- * SimpleSlap - Simple slapping plugin for players to abuse each other with
+ * PowerSlap - Slapping plugin for players to abuse each other with
  * Copyright (C) 2013 Stealth2800 <stealth2800@stealthyone.com>
  * Website: <http://stealthyone.com/bukkit>
  *
@@ -16,14 +16,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.stealthyone.mcb.simpleslap;
+package com.stealthyone.mcb.powerslap;
 
-import com.stealthyone.mcb.simpleslap.backend.SlapManager;
-import com.stealthyone.mcb.simpleslap.backend.cooldowns.CooldownManager;
-import com.stealthyone.mcb.simpleslap.commands.CmdSimpleSlap;
-import com.stealthyone.mcb.simpleslap.commands.CmdSlap;
-import com.stealthyone.mcb.simpleslap.config.ConfigHelper;
-import com.stealthyone.mcb.simpleslap.listeners.PlayerListener;
+import com.stealthyone.mcb.powerslap.backend.SlapManager;
+import com.stealthyone.mcb.powerslap.backend.cooldowns.CooldownManager;
+import com.stealthyone.mcb.powerslap.commands.CmdPowerSlap;
+import com.stealthyone.mcb.powerslap.commands.CmdSlap;
+import com.stealthyone.mcb.powerslap.config.ConfigHelper;
+import com.stealthyone.mcb.powerslap.listeners.PlayerListener;
 import com.stealthyone.mcb.stbukkitlib.messages.MessageManager;
 import com.stealthyone.mcb.stbukkitlib.players.PlayerUUIDTracker;
 import org.bukkit.Bukkit;
@@ -32,11 +32,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
-public class SimpleSlap extends JavaPlugin {
+public class PowerSlap extends JavaPlugin {
 
-    private static SimpleSlap instance;
+    private static PowerSlap instance;
 
-    public static SimpleSlap getInstance() {
+    public static PowerSlap getInstance() {
         return instance;
     }
 
@@ -91,7 +91,7 @@ public class SimpleSlap extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
 
-        getCommand("simpleslap").setExecutor(new CmdSimpleSlap(this));
+        getCommand("powerslap").setExecutor(new CmdPowerSlap(this));
         getCommand("slap").setExecutor(new CmdSlap(this));
 
         getLogger().info(String.format("%s v%s by Stealth2800 ENABLED.", getName(), getDescription().getVersion()));

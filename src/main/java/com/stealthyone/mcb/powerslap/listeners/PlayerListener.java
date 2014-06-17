@@ -1,5 +1,5 @@
 /*
- * SimpleSlap - Simple slapping plugin for players to abuse each other with
+ * PowerSlap - Slapping plugin for players to abuse each other with
  * Copyright (C) 2013 Stealth2800 <stealth2800@stealthyone.com>
  * Website: <http://stealthyone.com/bukkit>
  *
@@ -16,9 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.stealthyone.mcb.simpleslap.listeners;
+package com.stealthyone.mcb.powerslap.listeners;
 
-import com.stealthyone.mcb.simpleslap.SimpleSlap;
+import com.stealthyone.mcb.powerslap.PowerSlap;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -37,7 +37,7 @@ import java.util.UUID;
 
 public class PlayerListener implements Listener {
 
-    private SimpleSlap plugin;
+    private PowerSlap plugin;
 
     private static EnumSet<Material> fallDamageCancellers = EnumSet.of(
             Material.WATER,
@@ -51,7 +51,7 @@ public class PlayerListener implements Listener {
 
     private Set<UUID> checkingPlayers = new HashSet<>();
 
-    public PlayerListener(SimpleSlap plugin) {
+    public PlayerListener(PowerSlap plugin) {
         this.plugin = plugin;
     }
 

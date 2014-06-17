@@ -1,10 +1,10 @@
-package com.stealthyone.mcb.simpleslap.commands;
+package com.stealthyone.mcb.powerslap.commands;
 
-import com.stealthyone.mcb.simpleslap.SimpleSlap;
-import com.stealthyone.mcb.simpleslap.config.ConfigHelper;
-import com.stealthyone.mcb.simpleslap.messages.ErrorMessage;
-import com.stealthyone.mcb.simpleslap.messages.UsageMessage;
-import com.stealthyone.mcb.simpleslap.permissions.PermissionNode;
+import com.stealthyone.mcb.powerslap.PowerSlap;
+import com.stealthyone.mcb.powerslap.config.ConfigHelper;
+import com.stealthyone.mcb.powerslap.messages.ErrorMessage;
+import com.stealthyone.mcb.powerslap.messages.UsageMessage;
+import com.stealthyone.mcb.powerslap.permissions.PermissionNode;
 import com.stealthyone.mcb.stbukkitlib.utils.QuickMap;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -14,9 +14,9 @@ import org.bukkit.entity.Player;
 
 public class CmdSlap implements CommandExecutor {
 
-    private SimpleSlap plugin;
+    private PowerSlap plugin;
 
-    public CmdSlap(SimpleSlap plugin) {
+    public CmdSlap(PowerSlap plugin) {
         this.plugin = plugin;
     }
 
@@ -30,11 +30,11 @@ public class CmdSlap implements CommandExecutor {
         } else {
             switch (args[0].toLowerCase()) {
                 case "bypass":
-                    ((CmdSimpleSlap) plugin.getCommand("simpleslap").getExecutor()).cmdBypass(sender);
+                    ((CmdPowerSlap) plugin.getCommand("powerslap").getExecutor()).cmdBypass(sender);
                     return true;
 
                 case "toggle":
-                    ((CmdSimpleSlap) plugin.getCommand("simpleslap").getExecutor()).cmdToggle(sender);
+                    ((CmdPowerSlap) plugin.getCommand("powerslap").getExecutor()).cmdToggle(sender);
                     return true;
             }
         }

@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.stealthyone.mcb</groupId>
-    <artifactId>simpleslap</artifactId>
+    <artifactId>powerslap</artifactId>
     <version>1.3.0</version>
-    <name>SimpleSlap</name>
+    <name>PowerSlap</name>
     <url>http://stealthyone.com</url>
 
     <properties>
@@ -20,9 +20,9 @@
     </ciManagement>
 
     <scm>
-        <connection>scm:git:git://github.com/Stealth2800/SimpleSlap.git</connection>
-        <developerConnection>scm:git:git@github.com:Stealth2800/SimpleSlap.git</developerConnection>
-        <url>https://github.com/Stealth2800/SimpleSlap</url>
+        <connection>scm:git:git://github.com/Stealth2800/PowerSlap.git</connection>
+        <developerConnection>scm:git:git@github.com:Stealth2800/PowerSlap.git</developerConnection>
+        <url>https://github.com/Stealth2800/PowerSlap</url>
     </scm>
 
     <distributionManagement>
@@ -127,7 +127,7 @@
                             <relocations>
                                 <relocation>
                                     <pattern>com.stealthyone.mcb.stbukkitlib</pattern>
-                                    <shadedPattern>com.stealthyone.mcb.simpleslap.shade.stbukkitlib</shadedPattern>
+                                    <shadedPattern>com.stealthyone.mcb.powerslap.shade.stbukkitlib</shadedPattern>
                                 </relocation>
                             </relocations>
 

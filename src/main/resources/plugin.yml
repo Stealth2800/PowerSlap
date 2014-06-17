@@ -1,13 +1,13 @@
 name: ${project.name}
 version: ${project.version}
-description: Simple slapping plugin for players to abuse each other with
+description: Slapping plugin for players to abuse each other with
 depend: []
 softdepend: [VanishNoPacket]
 author: Stealth2800
 website: http://stealthyone.com/bukkit
-main: com.stealthyone.mcb.simpleslap.SimpleSlap
+main: com.stealthyone.mcb.powerslap.PowerSlap
 commands:
-  simpleslap:
+  powerslap:
     aliases: []
   slap:
     aliases: []

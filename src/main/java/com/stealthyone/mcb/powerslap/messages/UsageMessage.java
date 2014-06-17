@@ -1,5 +1,5 @@
 /*
- * SimpleSlap - Simple slapping plugin for players to abuse each other with
+ * PowerSlap - Slapping plugin for players to abuse each other with
  * Copyright (C) 2013 Stealth2800 <stealth2800@stealthyone.com>
  * Website: <http://stealthyone.com/bukkit>
  *
@@ -16,22 +16,34 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.stealthyone.mcb.simpleslap.backend.cooldowns;
+package com.stealthyone.mcb.powerslap.messages;
 
-public class Cooldown {
+import com.stealthyone.mcb.powerslap.PowerSlap;
+import com.stealthyone.mcb.stbukkitlib.messages.Message;
+import org.bukkit.command.CommandSender;
 
-    private int time;
+import java.util.Map;
 
-    public Cooldown(int time) {
-        this.time = time;
+public enum UsageMessage {
+
+    SLAP;
+
+    private String path;
+
+    private UsageMessage() {
+        this.path = "usages." + toString().toLowerCase();
     }
 
-    public int getTime() {
-        return time;
+    public Message getMessage() {
+        return PowerSlap.getInstance().getMessageManager().getMessage(path);
     }
 
-    public int countdown() {
-        return time--;
+    public void sendTo(CommandSender sender) {
+        getMessage().sendTo(sender);
+    }
+
+    public void sendTo(CommandSender sender, Map<String, String> replacements) {
+        getMessage().sendTo(sender, replacements);
     }
 
 }

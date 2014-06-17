@@ -1,5 +1,5 @@
 /*
- * SimpleSlap - Simple slapping plugin for players to abuse each other with
+ * PowerSlap - Slapping plugin for players to abuse each other with
  * Copyright (C) 2013 Stealth2800 <stealth2800@stealthyone.com>
  * Website: <http://stealthyone.com/bukkit>
  *
@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.stealthyone.mcb.simpleslap.config;
+package com.stealthyone.mcb.powerslap.config;
 
 public class ConfigHelper {
 

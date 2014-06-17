@@ -1,5 +1,5 @@
 /*
- * SimpleSlap - Simple slapping plugin for players to abuse each other with
+ * PowerSlap - Slapping plugin for players to abuse each other with
  * Copyright (C) 2013 Stealth2800 <stealth2800@stealthyone.com>
  * Website: <http://stealthyone.com/bukkit>
  *
@@ -16,12 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.stealthyone.mcb.simpleslap.backend.cooldowns;
+package com.stealthyone.mcb.powerslap.backend.cooldowns;
 
-import com.stealthyone.mcb.simpleslap.SimpleSlap;
-import com.stealthyone.mcb.simpleslap.config.ConfigHelper;
-import com.stealthyone.mcb.simpleslap.messages.NoticeMessage;
-import com.stealthyone.mcb.simpleslap.permissions.PermissionNode;
+import com.stealthyone.mcb.powerslap.PowerSlap;
+import com.stealthyone.mcb.powerslap.config.ConfigHelper;
+import com.stealthyone.mcb.powerslap.messages.NoticeMessage;
+import com.stealthyone.mcb.powerslap.permissions.PermissionNode;
 import com.stealthyone.mcb.stbukkitlib.storage.YamlFileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -35,7 +35,7 @@ import java.util.logging.Level;
 
 public class CooldownManager {
 
-    private SimpleSlap plugin;
+    private PowerSlap plugin;
 
     private YamlFileManager cooldownFile;
     private Map<UUID, Cooldown> playerCooldowns = new HashMap<>();
@@ -45,7 +45,7 @@ public class CooldownManager {
     private boolean reloading = false;
     private boolean offlinePause;
 
-    public CooldownManager(SimpleSlap plugin) {
+    public CooldownManager(PowerSlap plugin) {
         this.plugin = plugin;
         cooldownFile = new YamlFileManager(plugin.getDataFolder() + File.separator + "data" + File.separator + "cooldowns.yml");
         reloadCooldowns();

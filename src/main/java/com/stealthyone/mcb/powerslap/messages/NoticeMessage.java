@@ -1,5 +1,5 @@
 /*
- * SimpleSlap - Simple slapping plugin for players to abuse each other with
+ * PowerSlap - Slapping plugin for players to abuse each other with
  * Copyright (C) 2013 Stealth2800 <stealth2800@stealthyone.com>
  * Website: <http://stealthyone.com/bukkit>
  *
@@ -16,9 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.stealthyone.mcb.simpleslap.messages;
+package com.stealthyone.mcb.powerslap.messages;
 
-import com.stealthyone.mcb.simpleslap.SimpleSlap;
+import com.stealthyone.mcb.powerslap.PowerSlap;
 import com.stealthyone.mcb.stbukkitlib.messages.Message;
 import org.bukkit.command.CommandSender;
 
@@ -44,7 +44,7 @@ public enum NoticeMessage {
     }
 
     public Message getMessage() {
-        return SimpleSlap.getInstance().getMessageManager().getMessage(path);
+        return PowerSlap.getInstance().getMessageManager().getMessage(path);
     }
 
     public void sendTo(CommandSender sender) {

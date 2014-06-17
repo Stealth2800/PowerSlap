@@ -1,9 +1,9 @@
-package com.stealthyone.mcb.simpleslap.commands;
+package com.stealthyone.mcb.powerslap.commands;
 
-import com.stealthyone.mcb.simpleslap.SimpleSlap;
-import com.stealthyone.mcb.simpleslap.messages.ErrorMessage;
-import com.stealthyone.mcb.simpleslap.messages.NoticeMessage;
-import com.stealthyone.mcb.simpleslap.permissions.PermissionNode;
+import com.stealthyone.mcb.powerslap.PowerSlap;
+import com.stealthyone.mcb.powerslap.messages.ErrorMessage;
+import com.stealthyone.mcb.powerslap.messages.NoticeMessage;
+import com.stealthyone.mcb.powerslap.permissions.PermissionNode;
 import com.stealthyone.mcb.stbukkitlib.utils.QuickMap;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -11,11 +11,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CmdSimpleSlap implements CommandExecutor {
+public class CmdPowerSlap implements CommandExecutor {
 
-    private SimpleSlap plugin;
+    private PowerSlap plugin;
 
-    public CmdSimpleSlap(SimpleSlap plugin) {
+    public CmdPowerSlap(PowerSlap plugin) {
         this.plugin = plugin;
     }
 
@@ -106,7 +106,7 @@ public class CmdSimpleSlap implements CommandExecutor {
      * Show plugin version.
      */
     private void cmdVersion(CommandSender sender) {
-        sender.sendMessage("" + ChatColor.GREEN + ChatColor.BOLD + "SimpleSlap" + ChatColor.GOLD + " v" + plugin.getDescription().getVersion());
+        sender.sendMessage("" + ChatColor.GREEN + ChatColor.BOLD + "PowerSlap" + ChatColor.GOLD + " v" + plugin.getDescription().getVersion());
         sender.sendMessage(ChatColor.GOLD + "Created by Stealth2800");
         sender.sendMessage(ChatColor.BLUE + "http://stealthyone.com/bukkit");
     }

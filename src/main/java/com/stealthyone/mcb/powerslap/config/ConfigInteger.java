@@ -1,5 +1,5 @@
 /*
- * SimpleSlap - Simple slapping plugin for players to abuse each other with
+ * PowerSlap - Slapping plugin for players to abuse each other with
  * Copyright (C) 2013 Stealth2800 <stealth2800@stealthyone.com>
  * Website: <http://stealthyone.com/bukkit>
  *
@@ -16,26 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.stealthyone.mcb.simpleslap.config;
+package com.stealthyone.mcb.powerslap.config;
 
-import com.stealthyone.mcb.simpleslap.SimpleSlap;
+import com.stealthyone.mcb.powerslap.PowerSlap;
 
-public enum ConfigString {
+public enum ConfigInteger {
 
-    CONSOLE_CHAT_FORMAT("Console chat format");
+    SLAP_DEFAULT_POWER("Slap default power", 2);
 
     private String path;
+    private int defaultValue;
 
-    private ConfigString(String path) {
+    private ConfigInteger(String path, int defaultValue) {
         this.path = path;
     }
 
-    public String get() {
-        return SimpleSlap.getInstance().getConfig().getString(path);
-    }
-
-    public String get(String defaultValue) {
-        return SimpleSlap.getInstance().getConfig().getString(path, defaultValue);
+    public int get() {
+        return PowerSlap.getInstance().getConfig().getInt(path, defaultValue);
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * SimpleSlap - Simple slapping plugin for players to abuse each other with
+ * PowerSlap - Slapping plugin for players to abuse each other with
  * Copyright (C) 2013 Stealth2800 <stealth2800@stealthyone.com>
  * Website: <http://stealthyone.com/bukkit>
  *
@@ -16,12 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.stealthyone.mcb.simpleslap.backend;
+package com.stealthyone.mcb.powerslap.backend;
 
-import com.stealthyone.mcb.simpleslap.SimpleSlap;
-import com.stealthyone.mcb.simpleslap.config.ConfigHelper;
-import com.stealthyone.mcb.simpleslap.messages.ErrorMessage;
-import com.stealthyone.mcb.simpleslap.permissions.PermissionNode;
+import com.stealthyone.mcb.powerslap.PowerSlap;
+import com.stealthyone.mcb.powerslap.config.ConfigHelper;
+import com.stealthyone.mcb.powerslap.messages.ErrorMessage;
+import com.stealthyone.mcb.powerslap.permissions.PermissionNode;
 import com.stealthyone.mcb.stbukkitlib.storage.YamlFileManager;
 import com.stealthyone.mcb.stbukkitlib.utils.QuickMap;
 import com.stealthyone.mcb.stbukkitlib.utils.TimeUtils;
@@ -45,7 +45,7 @@ import java.util.logging.Level;
 
 public class SlapManager {
 
-    private SimpleSlap plugin;
+    private PowerSlap plugin;
 
     private Map<Integer, String> slapMessages = new HashMap<>();
 
@@ -60,7 +60,7 @@ public class SlapManager {
     private Map<UUID, Boolean> adminBypasses = new HashMap<>();
     private Map<UUID, Boolean> movementCancellers = new HashMap<>();
 
-    public SlapManager(SimpleSlap plugin) {
+    public SlapManager(PowerSlap plugin) {
         this.plugin = plugin;
         playerData = new YamlFileManager(plugin.getDataFolder() + File.separator + "data" + File.separator + "playerData.yml");
         tempData = new YamlFileManager(plugin.getDataFolder() + File.separator + "data" + File.separator + "damageCancellers.yml");
