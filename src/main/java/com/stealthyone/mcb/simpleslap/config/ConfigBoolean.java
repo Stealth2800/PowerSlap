@@ -1,5 +1,5 @@
 /*
- * Chatomizer - Advanced chat plugin with endless possibilities
+ * SimpleSlap - Simple slapping plugin for players to abuse each other with
  * Copyright (C) 2013 Stealth2800 <stealth2800@stealthyone.com>
  * Website: <http://stealthyone.com/bukkit>
  *

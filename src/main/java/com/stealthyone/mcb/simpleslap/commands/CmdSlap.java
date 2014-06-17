@@ -5,6 +5,7 @@ import com.stealthyone.mcb.simpleslap.config.ConfigHelper;
 import com.stealthyone.mcb.simpleslap.messages.ErrorMessage;
 import com.stealthyone.mcb.simpleslap.messages.UsageMessage;
 import com.stealthyone.mcb.simpleslap.permissions.PermissionNode;
+import com.stealthyone.mcb.stbukkitlib.utils.QuickMap;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,16 +25,16 @@ public class CmdSlap implements CommandExecutor {
         if (!PermissionNode.SLAP.isAllowed(sender, true)) return true;
 
         if (args.length < 1) {
-            UsageMessage.SLAP.sendTo(sender, label);
+            UsageMessage.SLAP.sendTo(sender, new QuickMap<>("{LABEL}", label).build());
             return true;
         } else {
             switch (args[0].toLowerCase()) {
                 case "bypass":
-                    ((CmdSimpleSlap) plugin.getCommand("simpleslap").getExecutor()).cmdBypass(sender, command, label, args);
+                    ((CmdSimpleSlap) plugin.getCommand("simpleslap").getExecutor()).cmdBypass(sender);
                     return true;
 
                 case "toggle":
-                    ((CmdSimpleSlap) plugin.getCommand("simpleslap").getExecutor()).cmdToggle(sender, command, label, args);
+                    ((CmdSimpleSlap) plugin.getCommand("simpleslap").getExecutor()).cmdToggle(sender);
                     return true;
             }
         }
@@ -50,13 +51,8 @@ public class CmdSlap implements CommandExecutor {
 
         String targetName = args[0];
         Player player = Bukkit.getPlayerExact(targetName);
-        if (player == null) {
-            ErrorMessage.UNABLE_TO_FIND_PLAYER.sendTo(sender, targetName);
-            return true;
-        }
-
-        if (plugin.getSlapManager().checkVanish(player)) {
-            ErrorMessage.UNABLE_TO_FIND_PLAYER.sendTo(sender, targetName);
+        if (player == null || plugin.getSlapManager().checkVanish(player)) {
+            ErrorMessage.UNABLE_TO_FIND_PLAYER.sendTo(sender, new QuickMap<>("{PLAYER}", targetName).build());
             return true;
         }
 

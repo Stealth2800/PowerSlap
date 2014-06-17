@@ -1,5 +1,5 @@
 /*
- * Chatomizer - Advanced chat plugin with endless possibilities
+ * SimpleSlap - Simple slapping plugin for players to abuse each other with
  * Copyright (C) 2013 Stealth2800 <stealth2800@stealthyone.com>
  * Website: <http://stealthyone.com/bukkit>
  *
@@ -19,8 +19,11 @@
 package com.stealthyone.mcb.simpleslap.messages;
 
 import com.stealthyone.mcb.simpleslap.SimpleSlap;
+import com.stealthyone.mcb.stbukkitlib.messages.Message;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+
+import java.util.Map;
 
 public enum UsageMessage {
 
@@ -33,16 +36,20 @@ public enum UsageMessage {
         this.path = "usages." + toString().toLowerCase();
     }
 
-    public String getMessage() {
+    public String getMessagePath() {
+        return path;
+    }
+
+    public Message getMessage() {
         return SimpleSlap.getInstance().getMessageManager().getMessage(path);
     }
 
-    public String getMessage(String... replacements) {
-        return SimpleSlap.getInstance().getMessageManager().getMessage(path, replacements);
+    public void sendTo(CommandSender sender) {
+        getMessage().sendTo(sender);
     }
 
-    public void sendTo(CommandSender sender, String label) {
-        sender.sendMessage(getMessage().replace("{LABEL}", label));
+    public void sendTo(CommandSender sender, Map<String, String> replacements) {
+        getMessage().sendTo(sender, replacements);
     }
 
 }

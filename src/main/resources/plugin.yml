@@ -1,6 +1,6 @@
 name: ${project.name}
 version: ${project.version}
-description: Slap plugin for Bukkit
+description: Simple slapping plugin for players to abuse each other with
 depend: []
 softdepend: [VanishNoPacket]
 author: Stealth2800

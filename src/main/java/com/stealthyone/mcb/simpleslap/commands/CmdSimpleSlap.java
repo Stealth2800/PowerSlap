@@ -4,6 +4,7 @@ import com.stealthyone.mcb.simpleslap.SimpleSlap;
 import com.stealthyone.mcb.simpleslap.messages.ErrorMessage;
 import com.stealthyone.mcb.simpleslap.messages.NoticeMessage;
 import com.stealthyone.mcb.simpleslap.permissions.PermissionNode;
+import com.stealthyone.mcb.stbukkitlib.utils.QuickMap;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,33 +22,33 @@ public class CmdSimpleSlap implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
-            cmdVersion(sender, command, label, args);
+            cmdVersion(sender);
             return true;
         }
 
         switch (args[0].toLowerCase()) {
             case "bypass":
-                cmdBypass(sender, command, label, args);
+                cmdBypass(sender);
                 return true;
 
             case "reload":
-                cmdReload(sender, command, label, args);
+                cmdReload(sender);
                 return true;
 
             case "save":
-                cmdSave(sender, command, label, args);
+                cmdSave(sender);
                 return true;
 
             case "toggle":
-                cmdToggle(sender, command, label, args);
+                cmdToggle(sender);
                 return true;
 
             case "version":
-                cmdVersion(sender, command, label, args);
+                cmdVersion(sender);
                 return true;
 
             default:
-                ErrorMessage.UNKNOWN_COMMAND.sendTo(sender, args[0]);
+                ErrorMessage.UNKNOWN_COMMAND.sendTo(sender, new QuickMap<>("{COMMAND}", args[0]).build());
 
             case "help":
                 sender.sendMessage(ChatColor.RED + "/" + label + " <help|reload|save|version>");
@@ -58,20 +59,20 @@ public class CmdSimpleSlap implements CommandExecutor {
     /*
      * Toggle admin bypass mode.
      */
-    protected void cmdBypass(CommandSender sender, Command command, String label, String[] args) {
+    protected void cmdBypass(CommandSender sender) {
         if (!(sender instanceof Player)) {
             ErrorMessage.MUST_BE_PLAYER.sendTo(sender);
             return;
         } else if (!PermissionNode.SLAP_ADMIN_BYPASS.isAllowed(sender, true)) return;
 
         boolean newValue = plugin.getSlapManager().toggleAdminBypass((Player) sender);
-        NoticeMessage.SLAP_BYPASS_TOGGLED.sendTo(sender, newValue ? (ChatColor.GREEN + "enabled") : (ChatColor.RED + "disabled"));
+        NoticeMessage.SLAP_BYPASS_TOGGLED.sendTo(sender, new QuickMap<>("{TOGGLE}", newValue ? (ChatColor.GREEN + "enabled") : (ChatColor.RED + "disabled")).build());
     }
 
     /*
      * Reload plugin data.
      */
-    private void cmdReload(CommandSender sender, Command command, String label, String[] args) {
+    private void cmdReload(CommandSender sender) {
         if (!PermissionNode.ADMIN_RELOAD.isAllowed(sender, true)) return;
 
         plugin.reloadAll();
@@ -81,20 +82,20 @@ public class CmdSimpleSlap implements CommandExecutor {
     /*
      * Toggle slap movement.
      */
-    protected void cmdToggle(CommandSender sender, Command command, String label, String[] args) {
+    protected void cmdToggle(CommandSender sender) {
         if (!(sender instanceof Player)) {
             ErrorMessage.MUST_BE_PLAYER.sendTo(sender);
             return;
         } else if (!PermissionNode.SLAP_TOGGLE.isAllowed(sender, true)) return;
 
         boolean newValue = plugin.getSlapManager().toggleMovementBlock((Player) sender);
-        NoticeMessage.SLAP_MOVEMENT_TOGGLED.sendTo(sender, newValue ? (ChatColor.RED + "blocking") : (ChatColor.GREEN + "accepting"));
+        NoticeMessage.SLAP_MOVEMENT_TOGGLED.sendTo(sender, new QuickMap<>("{TOGGLE}", newValue ? (ChatColor.RED + "blocking") : (ChatColor.GREEN + "accepting")).build());
     }
 
     /*
      * Save plugin data.
      */
-    private void cmdSave(CommandSender sender, Command command, String label, String[] args) {
+    private void cmdSave(CommandSender sender) {
         if (!PermissionNode.ADMIN_SAVE.isAllowed(sender, true)) return;
 
         plugin.saveAll();
@@ -104,7 +105,7 @@ public class CmdSimpleSlap implements CommandExecutor {
     /*
      * Show plugin version.
      */
-    private void cmdVersion(CommandSender sender, Command command, String label, String[] args) {
+    private void cmdVersion(CommandSender sender) {
         sender.sendMessage("" + ChatColor.GREEN + ChatColor.BOLD + "SimpleSlap" + ChatColor.GOLD + " v" + plugin.getDescription().getVersion());
         sender.sendMessage(ChatColor.GOLD + "Created by Stealth2800");
         sender.sendMessage(ChatColor.BLUE + "http://stealthyone.com/bukkit");

@@ -1,11 +1,30 @@
+/*
+ * SimpleSlap - Simple slapping plugin for players to abuse each other with
+ * Copyright (C) 2013 Stealth2800 <stealth2800@stealthyone.com>
+ * Website: <http://stealthyone.com/bukkit>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.stealthyone.mcb.simpleslap.backend;
 
 import com.stealthyone.mcb.simpleslap.SimpleSlap;
 import com.stealthyone.mcb.simpleslap.config.ConfigHelper;
 import com.stealthyone.mcb.simpleslap.messages.ErrorMessage;
 import com.stealthyone.mcb.simpleslap.permissions.PermissionNode;
-import com.stealthyone.mcb.simpleslap.utils.TimeUtils;
-import com.stealthyone.mcb.simpleslap.utils.YamlFileManager;
+import com.stealthyone.mcb.stbukkitlib.storage.YamlFileManager;
+import com.stealthyone.mcb.stbukkitlib.utils.QuickMap;
+import com.stealthyone.mcb.stbukkitlib.utils.TimeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -173,7 +192,7 @@ public class SlapManager {
 
     public void handleSlap(CommandSender sender, CommandSender target, int power) {
         if (power < 0) {
-            ErrorMessage.SLAP_INVALID_POWER.sendTo(sender, Integer.toString(power));
+            ErrorMessage.SLAP_INVALID_POWER.sendTo(sender, new QuickMap<>("{POWER}", Integer.toString(power)).build());
             return;
         } else if (!PermissionNode.SLAP_POWER.isAllowed(sender, Integer.toString(power), true)) {
             return;
@@ -199,7 +218,7 @@ public class SlapManager {
         }
 
         if (!plugin.getCooldownManager().handleSlap(sender)) {
-            ErrorMessage.SLAP_COOLING_DOWN.sendTo(sender, TimeUtils.translateSeconds(plugin.getCooldownManager().getCooldownTime(sender)));
+            ErrorMessage.SLAP_COOLING_DOWN.sendTo(sender, new QuickMap<>("{TIME}", TimeUtils.translateSeconds(plugin.getCooldownManager().getCooldownTime(sender))).build());
             return;
         }
 

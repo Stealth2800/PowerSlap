@@ -1,3 +1,21 @@
+/*
+ * SimpleSlap - Simple slapping plugin for players to abuse each other with
+ * Copyright (C) 2013 Stealth2800 <stealth2800@stealthyone.com>
+ * Website: <http://stealthyone.com/bukkit>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.stealthyone.mcb.simpleslap;
 
 import com.stealthyone.mcb.simpleslap.backend.SlapManager;
@@ -6,8 +24,8 @@ import com.stealthyone.mcb.simpleslap.commands.CmdSimpleSlap;
 import com.stealthyone.mcb.simpleslap.commands.CmdSlap;
 import com.stealthyone.mcb.simpleslap.config.ConfigHelper;
 import com.stealthyone.mcb.simpleslap.listeners.PlayerListener;
-import com.stealthyone.mcb.simpleslap.utils.MessageManager;
-import com.stealthyone.mcb.simpleslap.utils.PlayerUuidTracker;
+import com.stealthyone.mcb.stbukkitlib.messages.MessageManager;
+import com.stealthyone.mcb.stbukkitlib.players.PlayerUUIDTracker;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,7 +43,7 @@ public class SimpleSlap extends JavaPlugin {
     private boolean hookVanish = false;
 
     private MessageManager messageManager;
-    private PlayerUuidTracker uuidTracker;
+    private PlayerUUIDTracker uuidTracker;
 
     private CooldownManager cooldownManager;
     private SlapManager slapManager;
@@ -66,7 +84,7 @@ public class SimpleSlap extends JavaPlugin {
         }
 
         messageManager = new MessageManager(this);
-        uuidTracker = new PlayerUuidTracker(this);
+        uuidTracker = new PlayerUUIDTracker(this);
 
         cooldownManager = new CooldownManager(this);
         slapManager = new SlapManager(this);
@@ -90,7 +108,7 @@ public class SimpleSlap extends JavaPlugin {
         saveConfig();
         slapManager.save();
         cooldownManager.saveCooldowns();
-        uuidTracker.saveUuids();
+        uuidTracker.save();
     }
 
     public void reloadAll() {
@@ -104,7 +122,7 @@ public class SimpleSlap extends JavaPlugin {
         return messageManager;
     }
 
-    public PlayerUuidTracker getUuidTracker() {
+    public PlayerUUIDTracker getUuidTracker() {
         return uuidTracker;
     }
 
