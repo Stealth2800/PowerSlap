@@ -24,15 +24,18 @@ import com.stealthyone.mcb.powerslap.commands.CmdPowerSlap;
 import com.stealthyone.mcb.powerslap.commands.CmdSlap;
 import com.stealthyone.mcb.powerslap.config.ConfigHelper;
 import com.stealthyone.mcb.powerslap.listeners.PlayerListener;
+import com.stealthyone.mcb.stbukkitlib.autosaving.Autosavable;
+import com.stealthyone.mcb.stbukkitlib.autosaving.Autosaver;
 import com.stealthyone.mcb.stbukkitlib.messages.MessageManager;
 import com.stealthyone.mcb.stbukkitlib.players.PlayerUUIDTracker;
+import com.stealthyone.mcb.stbukkitlib.updates.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
-public class PowerSlap extends JavaPlugin {
+public class PowerSlap extends JavaPlugin implements Autosavable {
 
     private static PowerSlap instance;
 
@@ -44,6 +47,7 @@ public class PowerSlap extends JavaPlugin {
 
     private MessageManager messageManager;
     private PlayerUUIDTracker uuidTracker;
+    private UpdateChecker updateChecker;
 
     private CooldownManager cooldownManager;
     private SlapManager slapManager;
@@ -94,6 +98,10 @@ public class PowerSlap extends JavaPlugin {
         getCommand("powerslap").setExecutor(new CmdPowerSlap(this));
         getCommand("slap").setExecutor(new CmdSlap(this));
 
+        updateChecker = new UpdateChecker(this, 81389);
+        if (!Autosaver.scheduleForMe(this, this, getConfig().getInt("Autosave interval", 0))) {
+            getLogger().warning("Autosaving disabled. It is recommended that you enable it to prevent data loss!");
+        }
         getLogger().info(String.format("%s v%s by Stealth2800 ENABLED.", getName(), getDescription().getVersion()));
     }
 
@@ -104,6 +112,7 @@ public class PowerSlap extends JavaPlugin {
         instance = null;
     }
 
+    @Override
     public void saveAll() {
         saveConfig();
         slapManager.save();
@@ -115,7 +124,6 @@ public class PowerSlap extends JavaPlugin {
         reloadConfig();
         messageManager.reloadMessages();
         slapManager.reloadData();
-        cooldownManager.reloadCooldowns();
     }
 
     public MessageManager getMessageManager() {
@@ -132,6 +140,10 @@ public class PowerSlap extends JavaPlugin {
 
     public SlapManager getSlapManager() {
         return slapManager;
+    }
+
+    public UpdateChecker getUpdateChecker() {
+        return updateChecker;
     }
 
     public boolean isHookVanish() {

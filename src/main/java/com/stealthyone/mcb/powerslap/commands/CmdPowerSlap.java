@@ -4,6 +4,7 @@ import com.stealthyone.mcb.powerslap.PowerSlap;
 import com.stealthyone.mcb.powerslap.messages.ErrorMessage;
 import com.stealthyone.mcb.powerslap.messages.NoticeMessage;
 import com.stealthyone.mcb.powerslap.permissions.PermissionNode;
+import com.stealthyone.mcb.stbukkitlib.updates.UpdateChecker;
 import com.stealthyone.mcb.stbukkitlib.utils.QuickMap;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -109,6 +110,13 @@ public class CmdPowerSlap implements CommandExecutor {
         sender.sendMessage("" + ChatColor.GREEN + ChatColor.BOLD + "PowerSlap" + ChatColor.GOLD + " v" + plugin.getDescription().getVersion());
         sender.sendMessage(ChatColor.GOLD + "Created by Stealth2800");
         sender.sendMessage(ChatColor.BLUE + "http://stealthyone.com/bukkit");
+        UpdateChecker updateChecker = plugin.getUpdateChecker();
+        if (updateChecker.checkForUpdates()) {
+            String curVer = plugin.getDescription().getVersion();
+            String remVer = updateChecker.getNewVersion().replace("v", "");
+            sender.sendMessage(ChatColor.RED + "A different version was found on BukkitDev! (Current: " + curVer + " | Remote: " + remVer + ")");
+            sender.sendMessage(ChatColor.RED + "You can download it from " + updateChecker.getVersionLink());
+        }
     }
 
 }
