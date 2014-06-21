@@ -88,7 +88,9 @@ public class PowerSlap extends JavaPlugin implements Autosavable {
         }
 
         messageManager = new MessageManager(this);
+        messageManager.reloadMessages();
         uuidTracker = new PlayerUUIDTracker(this);
+        uuidTracker.load();
 
         cooldownManager = new CooldownManager(this);
         slapManager = new SlapManager(this);
