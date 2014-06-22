@@ -1,4 +1,5 @@
 Autosave interval: 10
+Check for updates: true
 Prevent fall damage: true
 Prevent fall damage from self: false
 Prevent vanished player slap: true
