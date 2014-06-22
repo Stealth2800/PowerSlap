@@ -32,8 +32,10 @@ import com.stealthyone.mcb.stbukkitlib.updates.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcstats.Metrics;
 
 import java.io.File;
+import java.io.IOException;
 
 public class PowerSlap extends JavaPlugin implements Autosavable {
 
@@ -99,6 +101,13 @@ public class PowerSlap extends JavaPlugin implements Autosavable {
 
         getCommand("powerslap").setExecutor(new CmdPowerSlap(this));
         getCommand("slap").setExecutor(new CmdSlap(this));
+
+        try {
+            Metrics metrics = new Metrics(this);
+            metrics.start();
+        } catch (IOException e) {
+            //Failed
+        }
 
         updateChecker = new UpdateChecker(this, 81389);
         if (!Autosaver.scheduleForMe(this, this, getConfig().getInt("Autosave interval", 0))) {
