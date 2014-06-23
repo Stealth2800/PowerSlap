@@ -46,7 +46,7 @@
 
         <repository>
             <id>stealthyone-repo</id>
-            <url>http://repo.stealthyone.com/content</url>
+            <url>http://repo.stealthyone.com/content/groups/public</url>
         </repository>
 
         <repository>
